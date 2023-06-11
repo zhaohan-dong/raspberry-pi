@@ -16,7 +16,7 @@ Find the installer at [Rocky Linux Alternative Images Download Page](https://roc
 or<br/>
 directly from [Rocky Linux for Raspberry Pi Image](https://dl.rockylinux.org/pub/sig/9/altarch/aarch64/images/RockyLinuxRpi_9-latest.img.xz)<br/>
 
-Load it onto an SD card or USB disk, using [Raspberry Pi Imager](https://www.raspberrypi.com/software/), [Balena Etcher](https://www.balena.io/etcher/), or run:<br/>
+Load it onto an SD card or USB disk, using [Raspberry Pi Imager](https://www.raspberrypi.com/software/), [Balena Etcher](https://www.balena.io/etcher/), or run on a Unix-like system:<br/>
 `dd if=DOWNLOADED_IMAGE of=DISK_NODE_IDENTIFIER bs=1M status=progress`<br/>
 
 Substitute:
