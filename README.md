@@ -1,7 +1,15 @@
-# Install Rocky Linux and Extras on Raspbery Pi 4B
+# Install Rocky Linux, Kubernetes and Others on Raspbery Pi 4B
 
 **Description of Rocky Linux**<br/>
 Rocky Linux is an open-source enterprise operating system designed to be 100% bug-for-bug compatible with Red Hat Enterprise Linux®. It is under intensive development by the community.
+
+**Why Rocky Linux**<br/>
+Rocky Linux is a RHEL compatible OS, likely stabler than Raspberry Pi OS or Ubuntu, with support for RPM packages.<br/>
+Note it is also possible to use [Oracle Linux](https://www.oracle.com/linux/downloads/linux-arm-downloads.html) natively on Raspberry Pi.<br/>
+
+**Are Other Systems Availale?**<br/>
+Yes, if the Raspberry Pi has UEFI installed.
+By installing [Raspberry Pi 4 UEFI Firmware](https://github.com/pftf/RPi4), it's technically possible to install other systems for AArch64. However, it was throwing Synchronous Exceptions during installation attempts of several other OSes.<br/>
 
 ## Download Latest Installer
 Find the installer at [Rocky Linux Alternative Images Download Page](https://rockylinux.org/alternative-images)<br/>
