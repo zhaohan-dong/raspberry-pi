@@ -1,5 +1,7 @@
 # Install Rocky Linux, Kubernetes and Others on Raspbery Pi 4B
 
+This main readme file will only describe installing Rocky Linux on Raspberry Pi 4B, you can find other readme files in the root directory.
+
 ### Description of Rocky Linux
 Rocky Linux is an open-source enterprise operating system designed to be 100% bug-for-bug compatible with Red Hat Enterprise Linux®. It is under intensive development by the community.
 
@@ -35,4 +37,16 @@ Run `sudo rootfs-expand` to grow the partition and use all of your memory card o
 
 For official guidance, find readme file at [Rocky 9 Raspberry Pi Image](https://dl.rockylinux.org/pub/sig/9/altarch/aarch64/images/README.txt)<br/>
 
-## Install Kubernetes
+## Turn Off Lights
+On Rocky Linux, create a new file `/boot/config.txt`, and include the following:<br/>
+```
+# Turn off red power led
+dtparam=pwr_led_trigger=none
+dtparam=pwr_led_activelow=on
+# Turn off activity led
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=off
+# Turn off ethernet leds
+dtparam=eth_led0=4
+dtparam=eth_led1=4
+```
