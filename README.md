@@ -19,9 +19,10 @@ Substitute:
 Plug the storage device into Raspberry Pi.<br/>
 
 Default credentials:<br/>
-username: rocky<br/>
-password: rockylinux<br/>
-
+```
+username: rocky
+password: rockylinux
+```
 Run "sudo rootfs-expand" to grow the partition and use all of your memory card or hard drive.<br/>
 
 For official guidance, find readme file at [Rocky 9 Raspberry Pi Image](https://dl.rockylinux.org/pub/sig/9/altarch/aarch64/images/README.txt)<br/>
