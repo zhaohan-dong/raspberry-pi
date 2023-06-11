@@ -15,7 +15,7 @@ Substitute:
 - `DOWNLOADED_IMAGE` with file path to the downloaded installer image
 - `DISK_NODE_IDENTIFIER` with disk node identifier, for example `/dev/disk6`, find the identifier using `diskutil list` on Mac
 
-## Start Rocky Linux
+## Boot Rocky Linux for the First Time
 Plug the storage device into Raspberry Pi.<br/>
 
 Default credentials:<br/>
