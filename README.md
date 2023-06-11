@@ -37,6 +37,10 @@ Run `sudo rootfs-expand` to grow the partition and use all of your memory card o
 
 For official guidance, find readme file at [Rocky 9 Raspberry Pi Image](https://dl.rockylinux.org/pub/sig/9/altarch/aarch64/images/README.txt)<br/>
 
+## Change Host Name and Host File
+`hostnamectl set-hostname DESIRED_HOST_NAME`
+also change the entry in `/etc/hosts`
+
 ## Turn Off Lights
 On Rocky Linux, create a new file `/boot/config.txt`, and include the following:<br/>
 ```
