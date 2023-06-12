@@ -18,7 +18,7 @@ You can also follow [Official Kubernetes Guide](https://kubernetes.io/docs/setup
 	- Check swap usage using `free -m`
 
 ## System Specific Configuration
-- Cgroup memory must be enabled. On a Raspberry Pi, edit `/boot/cmdline.txt` to include `cgroup_enable=memory`.
+- Cgroup memory must be enabled. On a Raspberry Pi, edit `/boot/cmdline.txt` to include `cgroup_enable=cpuset cgroup_enable=memory`(`cgroup_memory=1` not necessary anymore).
 - Disable swap by commenting out corresponding entry in `/etc/fstab`.
 - Open the ports required by Kubernetes in firewalld. See [Ports and Protocols](https://kubernetes.io/docs/reference/networking/ports-and-protocols/).
 	- Check ports opened by `sudo firewall-cmd --list-ports`
