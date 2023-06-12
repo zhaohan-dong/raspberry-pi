@@ -1,5 +1,7 @@
 # Installing Kubernetes on Raspberry Pi 4B
 
+For installing k3s, see [readme file for k3s](README-k3s.md)
+
 Why use `minikube` when you can configure a remote Kubernetes? In this guide, we will create a Kubernetes cluster with `kubeadm` on Raspberry Pi.<br/>
 You can also follow [Official Kubernetes Guide](https://kubernetes.io/docs/setup/production-environment/), but **be sure to check out System Specific Configuration**<br/>
 

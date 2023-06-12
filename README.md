@@ -44,13 +44,13 @@ also change the entry in `/etc/hosts`
 ## Turn Off Lights
 On Rocky Linux, create a new file `/boot/config.txt`, and include the following:<br/>
 ```
-# Turn off red power led
+# Turn off red power LED
 dtparam=pwr_led_trigger=none
 dtparam=pwr_led_activelow=on
-# Turn off activity led
+# Turn off green activity LED
 dtparam=act_led_trigger=none
 dtparam=act_led_activelow=off
-# Turn off ethernet leds
+# Turn off ethernet LEDs
 dtparam=eth_led0=4
 dtparam=eth_led1=4
 ```
