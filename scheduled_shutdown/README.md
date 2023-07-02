@@ -8,4 +8,4 @@ We'll run the cron job as root, because only root is permitted to issue `shutdow
 3. Enter the crontab entry in root's crontab
 - `export EDITOR=vim` (change `vim` to other editors you prefer, e.g. emanc)
 - Edit root's crontab via `sudo crontab -e` 
-  -  For example, `00 22 * * * /bin/bash /root/shutdown.sh`
+  -  For example, `00 22 * * * /sbin/shutdown -P +5 "Sudoers, use 'sudo shutdown -c' to cancel."`

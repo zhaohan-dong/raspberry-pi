@@ -54,3 +54,21 @@ dtparam=act_led_activelow=off
 dtparam=eth_led0=4
 dtparam=eth_led1=4
 ```
+
+## Cron & Anacron
+Rocky Linux supports both `anacron` and `cron` (looking at you Apple). Check logs at `/var/log/cron`
+
+## Disable Ping (ICMP Requests)
+### Recommended Method
+Drop ICMP requests without notifying the client.
+`sudo firewall-cmd --set-target=DROP --permanent`
+`sudo firewall-cmd --reload`
+### Un-Recommended Method
+Run as root<br/>
+IPV4: `echo "1" > /proc/sys/net/ipv4/icmp_echo_ignore_all`
+IPV6: `echo "1" > /prc/sys/net/ipv6/icmp/echo_ignore_all`
+See [IP Sysctl - The Linux Kernel](https://docs.kernel.org/networking/ip-sysctl.html) for more details.
+
+To make it persistent, instead of the above, in `/etc/sysctl.conf` set:<br/>
+`net.ipv4.icmp_echo_ignore_all = 1`
+`net.ipv6.icmp.echo_ignore_all = 1`
