@@ -28,6 +28,6 @@ Overclock (max 2.1GHz achieved, also don't use over_voltage to supply more power
 ```
 arm_freq=2100
 arm_freq_min=400
-gpu_freq=500
+gpu_freq=650
 gpu_mem=256
 ```
