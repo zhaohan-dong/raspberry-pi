@@ -27,7 +27,7 @@ Disable UART: comment out `enable_uart=1` or set `enable_uart=0`
 Overclock (max 2.1GHz achieved, also don't use over_voltage to supply more power as it would be controlled automatically and safely):
 ```
 arm_freq=2100
-arm_freq_min=100
-gpu_freq=800
+arm_freq_min=400
+gpu_freq=500
 gpu_mem=256
 ```
