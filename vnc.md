@@ -13,3 +13,6 @@ On first login, it would prompt user to set a password. To change the password l
 To connect, we'll use ssh to port forward local host's port to port 5901 on the raspberry pi.
 `ssh -NTL [localhost port for vnc]:127.0.0.1:5901 [ssh-user]@[remote-host]`
 Then connect to the localhost port for vnc via `vnc://127.0.0.1:[localhost port for vnc]` to start remote desktop.
+
+## Stopping
+Run `tigervncserver -kill :*` on raspberry pi to stop the vnc server.
