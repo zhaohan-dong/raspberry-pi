@@ -11,7 +11,10 @@ Check state at:
 ```bash
 sudo systemctl status xrdp
 ```
-Now you're ready to go. Login using GUI username and password.
+Now you're ready to go. Login using GUI username and password. The default port is 3389
+
+To use ssh port forward:
+``ssh -NTL [localhost port for rdp]:127.0.0.1:3389 [ssh-user]@[remote-host]``
 
 ## TigerVNC
 TigerVNC seems to be the best supported VNC server.

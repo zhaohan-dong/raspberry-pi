@@ -22,3 +22,26 @@ gpu_mem=256
 `over_voltage=6` sets voltage to be `6 * 0.025 = 0.15V` over default voltage. The hardware/firmware sets a hard limit of 1.1V supply, so this should be the maximum effective voltage set.
 
 Also check `arm_64bit=1`, which should be set by default.
+
+## Useful resources
+A few commands to help test the overclock configuration.
+
+Measure voltage supply:
+`vcgencmd measure_volts`
+
+Measure Clock Speed:
+`vcgencmd measure_clock arm`
+
+Measure Temperature:
+`vcgencmd measure_temp`
+Also `cat /sys/class/thermal/thermal_zone*/temp`
+
+Throttling:
+`vcgencmd get_throttled`.
+Any non-zero value means it's being throttled.
+
+Stress test:
+```bash
+sudo apt install stress-ng
+stress-ng -c 4
+```
