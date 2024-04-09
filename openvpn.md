@@ -181,7 +181,7 @@ sudo openvpn --genkey tls-crypt-v2-client <client-tls>.key
 Copy `<server-tls>.key` to `/etc/openvpn`.
 Copy `<client-tls>.key` to client via a secure way.
 
-## 5 Sign Client Certificates
+## 6 Sign Client Certificates
 
 Import Signing Request:
  - **(NOT PREFERRED) (Inherent Risk Leaving Client Private Key on Server)** Create certificate signing request on server for client:
@@ -201,7 +201,7 @@ Sign the request:
 ./easyrsa sign-req client <client name>
 ```
 
-## 6 Send files to Client
+## 7 Send files to Client
 
 Copy the following to the client:
 ```
@@ -209,7 +209,7 @@ pki/ca.crt
 pki/issued/<client name>.crt
 ```
 
-## 7 Setup port forwarding on server
+## 8 Setup port forwarding on server
 Edit `/etc/sysctl.conf` and uncomment
 ```
 #net.ipv4.ip_forward=1
@@ -219,7 +219,7 @@ Reload configuration
 sudo sysctl -p /etc/sysctl.conf
 ```
 
-## 8 Edit configuration and start server
+## 9 Edit configuration and start server
 
 Copy sample server configuration:
 ```bash
