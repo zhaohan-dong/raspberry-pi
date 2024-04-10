@@ -175,7 +175,7 @@ sudo openvpn --genkey tls-crypt-v2-server <server-tls>.key
 
 ```bash
 # Generate client tls-crypt-v2 key
-sudo openvpn --genkey tls-crypt-v2-client <client-tls>.key
+sudo openvpn --tls-crypt-v2 <server-tls>.key --genkey tls-crypt-v2-client <client-tls>.key
 ```
 
 Copy `<server-tls>.key` to `/etc/openvpn`.
