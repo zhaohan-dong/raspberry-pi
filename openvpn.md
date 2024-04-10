@@ -201,13 +201,31 @@ Sign the request:
 ./easyrsa sign-req client <client name>
 ```
 
-## 7 Send files to Client
+## 7 Send Certificates to Client
 
 Copy the following to the client:
 ```
 pki/ca.crt
 pki/issued/<client name>.crt
 ```
+
+Copy client configuration file to client from
+`/usr/share/doc/openvpn/examples/sample-config-files/client.conf`.
+
+The client should have the following files:
+```
+ca.crt                       <--- Root CA certificate
+client1.crt                  <--- Client public certificate
+client1.key                  <--- Client private key
+client-tls.key               <--- TLS Crypt V2 client private key
+```
+
+To import into OpenVPN client, you may need to convert it to `.opvn` file.
+Change the file extension, then edit `ca`, `cert`, `key` and `tls-auth` entries to have the keys enclosed in
+`<ca></ca>`, `<cert></cert>`, `<key></key>`, `<tls-crypt-v2></tls-crypt-v2>`.
+
+If you decide to use the `.conf` on Linux, just ensure those entries mentioned point to the correct files.
+
 
 ## 8 Setup port forwarding on server
 Edit `/etc/sysctl.conf` and uncomment
@@ -225,7 +243,7 @@ Copy sample server configuration:
 ```bash
 sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf
 ```
-Edit the file to point to the right files
+Edit the `server.conf` file to point to the right files
 ```
 ca ca.crt                            <--- Root CA certificate
 cert <your server name>.crt          <--- Server certificate
@@ -234,7 +252,7 @@ dh dh2048.pem                        <--- DH parameters
 tls-crypt-v2 <server-tls>.key        <--- Server tls-crypt-v2 key
 ```
 
-Start server (server-name is the .conf's file name, e.g. server for our case)
+Start server (server-name is the `.conf`'s file name, e.g. `server` for our case)
 ```bash
 sudo systemctl start openvpn@<server-name>
 ```
