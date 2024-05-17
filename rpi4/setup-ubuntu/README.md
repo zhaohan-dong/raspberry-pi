@@ -29,3 +29,4 @@ To install Ubuntu Desktop, use `sudo apt install ubuntu-desktop`. There might be
 On the SD card, add content in [`ubuntu-boot-config.txt`](ubuntu-boot-config.txt) to the **existing `config.txt`** on SD card/boot drive, or `/boot/firmware/config.txt` on machine:
 Connect the PWM pin of the fan to GPIO pin 14, if using official Raspberry Pi 4 fan.
 > Note: The LED settings behavior is different for pre-bullseye builds and other systems, where `dtparam=act_led_trigger=none` is used instead of `dtparam=pwr_led_trigger=default-on`
+> Note: The fan may stay on even when the temperature is below the preset value (especially in summer). The temperature needs to fall by a lot from the threshold to stop the fan.
