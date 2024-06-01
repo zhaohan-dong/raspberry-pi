@@ -227,7 +227,7 @@ Change the file extension, then edit `ca`, `cert`, `key` and `tls-auth` entries 
 If you decide to use the `.conf` on Linux, just ensure those entries mentioned point to the correct files.
 
 
-## 8 Setup port forwarding on server
+## 8 Setup port forwarding on server and route all traffic
 Edit `/etc/sysctl.conf` and uncomment
 ```
 #net.ipv4.ip_forward=1
@@ -236,6 +236,29 @@ Reload configuration
 ```bash
 sudo sysctl -p /etc/sysctl.conf
 ```
+
+Setup iptable NAT rules:
+```bash
+sudo iptables -t nat -A POSTROUTING -s <subnet of client> -o <network interface> -j MASQUERADE
+
+sudo iptables -t nat -A POSTROUTING -s <subnet of client> -o tun0 -j MASQUERADE
+```
+Subnets can be like `192.168.0.0/24` and network interface would be `eth0`, `wlan0` or `tun0`
+
+```bash
+iptables -A FORWARD -j ACCEPT
+
+iptables -A INPUT -i wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+```
+Edit `/etc/openvpn/server.conf`:
+```
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.4.4"
+```
+
+
 
 ## 9 Edit configuration and start server
 
