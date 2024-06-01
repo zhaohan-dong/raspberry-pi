@@ -240,17 +240,23 @@ sudo sysctl -p /etc/sysctl.conf
 Setup iptable NAT rules:
 ```bash
 sudo iptables -t nat -A POSTROUTING -s <subnet of client> -o <network interface> -j MASQUERADE
-
-sudo iptables -t nat -A POSTROUTING -s <subnet of client> -o tun0 -j MASQUERADE
+sudo iptables -A FORWARD -j ACCEPT
 ```
-Subnets can be like `192.168.0.0/24` and network interface would be `eth0`, `wlan0` or `tun0`
+Subnets can be like `192.168.0.0/24` and network interface would be `eth0`, `wlan0` or something else
 
+Check the rules with:
 ```bash
-iptables -A FORWARD -j ACCEPT
-
-iptables -A INPUT -i wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
-iptables -A INPUT -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -t nat -L -v --line-numbers
+sudo iptables -L FORWARD -v -n --line-numbers
 ```
+
+Then persist across reboot with:
+```bash
+sudo apt-get install iptables-persistent
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+```
+
 Edit `/etc/openvpn/server.conf`:
 ```
 push "redirect-gateway def1 bypass-dhcp"
