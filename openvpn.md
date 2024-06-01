@@ -255,6 +255,7 @@ Then persist across reboot with:
 sudo apt-get install iptables-persistent
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
+sudo enable netfilter-persistent
 ```
 
 Edit `/etc/openvpn/server.conf`:
