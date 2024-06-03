@@ -239,10 +239,11 @@ sudo sysctl -p /etc/sysctl.conf
 
 Setup iptable NAT rules:
 ```bash
-sudo iptables -t nat -A POSTROUTING -s <subnet of client> -o <network interface> -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -o <network interface> -s <subnet of client (incoming connection)> ! -d <destination to exclude> -j MASQUERADE
 sudo iptables -A FORWARD -j ACCEPT
 ```
-Subnets can be like `192.168.0.0/24` and network interface would be `eth0`, `wlan0` or something else
+Subnets can be like `192.168.0.0/24` and network interface would be `eth0`, `wlan0` or something else.
+Set destination to exclude like local network.
 
 Check the rules with:
 ```bash
