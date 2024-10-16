@@ -1,5 +1,7 @@
 # Setting up OpenVPN
-*Last Update: 20240409*
+*Last Update: 20241006*
+
+> **As of 2024, the best way to install OpenVPN is to use the [installation script](https://github.com/Nyr/openvpn-install) by Nyr.**<br/>It is much easier to manage than manual set up, as Ubuntu 24.04 LTS creates dependency conflicts between `ufw` and `iptables-persistent` (for no good reason). There is one caveat that it does not supporting asynchronous cert signing with CSR which would be more secure...
 
 We'll follow approximately of the [guide](https://ubuntu.com/server/docs/service-openvpn) from Ubuntu. At the time of writing, there are some discrepancies noted between the guide and actual setup.
 
@@ -228,6 +230,9 @@ If you decide to use the `.conf` on Linux, just ensure those entries mentioned p
 
 
 ## 8 Setup port forwarding on server and route all traffic
+
+> Note: As of the latest Ubuntu 24.04 LTS, this is depreciated because `ufw` and `iptables-persistent` have dependency conflicts during installation.<br/> Use Nyr's [installation script](https://github.com/Nyr/openvpn-install) mentioned in the beginning as the NAT and forwarding is handled via a separate service.
+
 Edit `/etc/sysctl.conf` and uncomment
 ```
 #net.ipv4.ip_forward=1
