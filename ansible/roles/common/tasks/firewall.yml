@@ -1,0 +1,37 @@
+---
+- name: Set up Ubuntu/Debian ufw
+  become: true
+  when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+  block:
+    - name: Allow OpenSSH (default on port 22) if ssh_config["enabled"] is true (default)
+      when: common_ssh_config["enabled"]
+      block:
+        - name: Set allow rule
+          community.general.ufw:
+            rule: allow
+            name: OpenSSH
+            src: "{{ common_ssh_config['src'] }}"
+            port: "{{ common_ssh_config['port'] }}"
+        - name: Print instruction for disabling ssh
+          ansible.builtin.debug:
+            msg: SSH will use ansible_port or port 22. To disable SSH access, set ssh_config["enabled"] = false. You can also specify port by setting common_ssh_config["port"]
+
+    - name: Confirm removal of OpenSSH rule if common_ssh_config["enabled"] is false
+      when: not common_ssh_config["enabled"]
+      ansible.builtin.pause:
+        prompt: "WARNING: Do you really want to remove the OpenSSH rule? Ansible will not be able to reach the target (yes/no)"
+      register: user_confirmed_deny_ssh
+      failed_when: user_confirmed_deny_ssh.user_input != "yes"
+
+    - name: Delete OpenSSH rule if ssh_config["enabled"] is false and user confirms
+      when: not common_ssh_config["enabled"]
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+        delete: true
+
+    - name: Enable ufw, deny all by default and add logging
+      community.general.ufw:
+        state: enabled
+        policy: deny
+        logging: "on"

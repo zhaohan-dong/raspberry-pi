@@ -1,0 +1,5 @@
+---
+common_supported_os:
+  - redhat
+  - debian
+  - ubuntu

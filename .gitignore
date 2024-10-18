@@ -1,4 +1,6 @@
-.*
 *.iso
 *.img
 *.idea
+.idea/
+.vscode/
+.DS_Store

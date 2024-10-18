@@ -1,0 +1,6 @@
+---
+# Default allowed from any IP range and port 22 or ansible_port for SSH
+common_ssh_config:
+  enabled: true
+  src: any
+  port: "{{ ansible_port | default('22') }}"

@@ -1,0 +1,6 @@
+---
+- name: Restart sshd
+  become: true
+  ansible.builtin.service:
+    name: "{{ 'sshd' if ansible_facts['os_family'] | lower == 'redhat' else 'ssh' }}"
+    state: restarted
