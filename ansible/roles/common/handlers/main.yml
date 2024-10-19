@@ -1,4 +1,5 @@
 ---
+# Restart ssh/sshd service, required by tasks/disable-password-auth.yml
 - name: Restart sshd
   become: true
   ansible.builtin.service:

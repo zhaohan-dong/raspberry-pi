@@ -3,9 +3,17 @@
   ansible.builtin.fail:
     msg: This role is only supported on {{ common_supported_os }} systems
   when: ansible_facts["os_family"] | lower not in common_supported_os
+  tags:
+    - common
+
+- name: Disable Password Login
+  ansible.builtin.import_tasks: disable-password-auth.yml
+  tags:
+    - common
+    - common:disable-password-auth
 
 - name: Upgrade System Packages
-  ansible.builtin.import_tasks: update.yml
+  ansible.builtin.import_tasks: upgrade.yml
   tags:
     - common
     - common:upgrade
@@ -15,9 +23,3 @@
   tags:
     - common
     - common:firewall
-
-- name: Disable Password Login
-  ansible.builtin.import_tasks: disable-password-auth.yml
-  tags:
-    - common
-    - common:disable-password-auth

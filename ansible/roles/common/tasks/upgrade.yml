@@ -7,7 +7,7 @@
     upgrade: safe
     autoremove: true
 
-- name: Ensure yum is up to date on RedHat
+- name: Ensure dnf is up to date on RedHat
   when: ansible_facts["os_family"] | lower == "redhat"
   become: true
   ansible.builtin.dnf:

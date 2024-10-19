@@ -1,37 +1,60 @@
 ---
-- name: Set up Ubuntu/Debian ufw
+- name: Enable Ubuntu/Debian UFW with SSH
   become: true
   when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+  vars:
+    control_ip: "{{ ansible_env['SSH_CLIENT'].split() | first }}"
+    # Transform common_ssh_allowed_src into list
+    ssh_allowed_src: "{{common_ssh_allowed_src if common_ssh_allowed_src is not string else [common_ssh_allowed_src]}}"
   block:
-    - name: Allow OpenSSH (default on port 22) if ssh_config["enabled"] is true (default)
-      when: common_ssh_config["enabled"]
-      block:
-        - name: Set allow rule
-          community.general.ufw:
-            rule: allow
-            name: OpenSSH
-            src: "{{ common_ssh_config['src'] }}"
-            port: "{{ common_ssh_config['port'] }}"
-        - name: Print instruction for disabling ssh
-          ansible.builtin.debug:
-            msg: SSH will use ansible_port or port 22. To disable SSH access, set ssh_config["enabled"] = false. You can also specify port by setting common_ssh_config["port"]
+    - name: Check current host ip address is in common_ssh_allowed_src
+      ansible.builtin.fail:
+        msg: "Your IP {{ control_ip }} is not in common_ssh_allowed_src"
+      when: >
+        (ssh_allowed_src | 
+        map('ansible.utils.network_in_network', control_ip) | 
+        sum) < 1
+    
+    - name: Get current UFW rules
+      command: ufw status numbered
+      register: ufw_status
 
-    - name: Confirm removal of OpenSSH rule if common_ssh_config["enabled"] is false
-      when: not common_ssh_config["enabled"]
-      ansible.builtin.pause:
-        prompt: "WARNING: Do you really want to remove the OpenSSH rule? Ansible will not be able to reach the target (yes/no)"
-      register: user_confirmed_deny_ssh
-      failed_when: user_confirmed_deny_ssh.user_input != "yes"
+    - name: Debug - Check extracted IP (item.split()[2])
+      debug:
+        msg: "{{ 'OpenSSH' in item and (item.split()[6] if 'OpenSSH (v6)' in item else item.split()[5]).replace('Anywhere', 'any') }}"
+      loop: "{{ ufw_status.stdout_lines }}"
 
-    - name: Delete OpenSSH rule if ssh_config["enabled"] is false and user confirms
-      when: not common_ssh_config["enabled"]
+    - name: Delete all OpenSSH rules not in common_ssh_allowed_src
+      community.general.ufw:
+        delete: true
+        rule: allow
+        name: OpenSSH
+        src: "{{ (item.split()[6] if 'OpenSSH (v6)' in item else item.split()[5]).replace('Anywhere', 'any') }}"
+      loop: "{{ ufw_status.stdout_lines }}"
+      when: "'OpenSSH' in item and ((item.split()[6] if 'OpenSSH (v6)' in item else item.split()[5]).replace('Anywhere', 'any') not in ssh_allowed_src)"
+
+    - name: Allow OpenSSH on ansible_port or 22 (default)
+      loop: "{{ ssh_allowed_src }}"
       community.general.ufw:
         rule: allow
         name: OpenSSH
-        delete: true
+        src: "{{ item }}"
+        port: "{{ ansible_port | default('22') }}"
 
+  rescue:
+    - name: Grant ssh access when there's error
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+        src: "any"
+        port: "22"
+    - name: Warn user
+      ansible.builtin.debug:
+        msg: "Error setting up ssh through ufw on {{ inventory_hostname }}. Enabled ssh from any to port 22. Please check ufw settings."
+  
+  always:
     - name: Enable ufw, deny all by default and add logging
       community.general.ufw:
         state: enabled
-        policy: deny
-        logging: "on"
+
+    # TODO: Firewall for RedHat
