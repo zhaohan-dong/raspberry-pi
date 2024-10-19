@@ -5,3 +5,15 @@
   ansible.builtin.service:
     name: "{{ 'sshd' if ansible_facts['os_family'] | lower == 'redhat' else 'ssh' }}"
     state: restarted
+
+- name: Enable ufw
+  become: true
+  community.general.ufw:
+    state: enabled
+    rule: deny
+    logging: "on"
+
+- name: Disable ufw
+  become: true
+  community.general.ufw:
+    state: disabled
