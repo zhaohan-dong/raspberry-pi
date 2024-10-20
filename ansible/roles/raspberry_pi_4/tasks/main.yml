@@ -1,0 +1,8 @@
+---
+# raspberry_pi_common is run before these as dependency
+
+- name: Set Boot Config
+  ansible.builtin.import_tasks: set_boot_config.yml
+
+- name: Verify Boot Config
+  ansible.builtin.import_tasks: check_boot_config.yml

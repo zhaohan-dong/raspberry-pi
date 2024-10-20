@@ -1,0 +1,21 @@
+---
+- name: Check Check raspberry_pi_common configs
+  ansible.builtin.debug:
+    msg: "Checking raspberry_pi_common configs"
+  notify: Check raspberry_pi_common configs
+
+- name: Check RTC battery charging
+  block:
+    - name: Suggest installing RTC backup battery
+      when: not raspberry_pi_5_has_rtc_batt
+      ansible.builtin.debug:
+        msg: The inventory suggests {{ inventory_hostname }} doesn't have RTC backup battery. The battery will not be charged if present.
+    - name: Get RTC battery charging voltage
+      ansible.builtin.command: cat /sys/devices/platform/soc/soc:rpi_rtc/rtc/rtc0/charging_voltage
+      register: rtc_charging_voltage
+      changed_when: false
+    - name: Notify
+      ansible.builtin.fail:
+        msg: "RTC Battery charging voltage: {{ rtc_charging_voltage.stdout }} does not match RTC battery installed status: {{ raspberry_pi_5_has_rtc_batt }}"
+      when: (raspberry_pi_5_has_rtc_batt and rtc_charging_voltage.stdout != "3000000") or
+        (not raspberry_pi_5_has_rtc_batt and rtc_charging_voltage.stdout != "0")

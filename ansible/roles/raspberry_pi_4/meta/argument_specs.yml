@@ -1,0 +1,31 @@
+---
+argument_specs:
+  # roles/raspberry_pi_4/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the raspberry_pi_4 role
+    description:
+      - This is the main entrypoint for the raspberry_pi_4 role
+      - This sets up boot configuration for Raspberry Pi 4 and overwrites default
+    author:
+      - Zhaohan Dong
+    options:
+      raspberry_pi_4_has_gpio_fan:
+        type: "bool"
+        required: false
+        default: true
+        description: "Whether Raspberry Pi 4 has GPIO fan installed"
+      raspberry_pi_4_gpio_fan_pin:
+        type: "int"
+        required: false
+        default: 14
+        description: "GPIO pin number for fan"
+      raspberry_pi_4_fan_temp:
+        type: "int"
+        required: false
+        default: 60000
+        description: "Threshold temperature in millicelsius to switch the fan on"
+      raspberry_pi_4_turn_off_lights:
+        type: "bool"
+        required: false
+        default: false
+        description: "Turn off the external lights on power and ethernet"

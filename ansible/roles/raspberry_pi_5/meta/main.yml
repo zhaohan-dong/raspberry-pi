@@ -1,0 +1,4 @@
+---
+# Let raspberry_pi_common run first
+dependencies:
+  - { role: raspberry_pi_common }

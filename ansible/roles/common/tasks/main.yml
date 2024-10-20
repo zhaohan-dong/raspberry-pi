@@ -1,0 +1,25 @@
+---
+- name: Check if System is Supported
+  ansible.builtin.fail:
+    msg: This role is only supported on {{ common_supported_os }} systems
+  when: ansible_facts["os_family"] | lower not in common_supported_os
+  tags:
+    - common
+
+- name: Disable Password Login
+  ansible.builtin.import_tasks: disable_password_auth.yml
+  tags:
+    - common
+    - common:disable_password_auth
+
+- name: Upgrade System Packages
+  ansible.builtin.import_tasks: upgrade.yml
+  tags:
+    - common
+    - common:upgrade
+
+- name: Setup Firewall
+  ansible.builtin.import_tasks: firewall.yml
+  tags:
+    - common
+    - common:firewall

@@ -1,11 +1,6 @@
-# Resources for Raspberry Pi 4B
+# Resources for Configuring Raspberry Pi 4B
+ - `config.txt` the boot config file to save on MicroSD card, or to `/boot/firmware/config.txt` in the system
+ - `bootfs-original.zip` contains original boot image
+ - `overclock.md` is about overclocking and parameters
 
-Procedures to install system are in the `./setup-rockylinux` or `./setup-ubuntu` directories.
-
-`bootfs-original.zip` contains original boot image
-
-`overclock.md` is about overclocking and parameters
-
-`remote-desktop.md` sets up remote desktop via RDP or VNC.
-
-`watchdog.md` is useful to set up watchdog, to reboot Raspberry Pi when it crashes.
+(Depreciated) Procedures and notes to install systems are in the `./deprecated-setup-rockylinux` or `./deprecated-setup-ubuntu` directories. We'll use [Ansible](https://www.ansible.com) to configure moving forward.

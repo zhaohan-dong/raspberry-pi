@@ -1,0 +1,25 @@
+---
+- name: Display Boot Config
+  ansible.builtin.debug:
+    msg: >-
+      Boot Configurations for roles {{ ansible_role_names }}:
+      {
+      "raspberry_pi_common_enable_i2c": {{ raspberry_pi_common_enable_i2c }},
+      "raspberry_pi_common_enable_spi": {{ raspberry_pi_common_enable_spi }},
+      "raspberry_pi_common_enable_uart": {{ raspberry_pi_common_enable_uart }},
+      "raspberry_pi_common_enable_watchdog": {{ raspberry_pi_common_enable_watchdog }},
+      "raspberry_pi_common_watchdog_max_temp": {{ raspberry_pi_common_watchdog_max_temp }},
+      "raspberry_pi_4_has_gpio_fan": {{ raspberry_pi_4_has_gpio_fan }},
+      "raspberry_pi_4_gpio_fan_pin": {{ raspberry_pi_4_gpio_fan_pin }},
+      "raspberry_pi_4_fan_temp": {{ raspberry_pi_4_fan_temp }},
+      "raspberry_pi_4_turn_off_lights": {{ raspberry_pi_4_turn_off_lights }}
+      }
+
+- name: Set /boot/firmware/config.txt using template
+  become: true
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config_rpi4.txt.j2"
+    dest: /boot/firmware/config.txt
+    mode: "0644"
+  # Reboot if changed
+  notify: Reboot system

@@ -1,0 +1,18 @@
+---
+- name: Enable Ubuntu/Debian UFW with SSH
+  become: true
+  when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+  block:
+    - name: Setup ufw allow rules
+      ansible.builtin.debug:
+        msg: Setting up ufw allow ssh rules
+      notify: Set ufw ssh allow rules
+
+    - name: Flush handler to Set ufw ssh allow rules, before enabling ufw
+      ansible.builtin.meta: flush_handlers
+    - name: Enable ufw, deny all by default and add logging
+      ansible.builtin.debug:
+        msg: ufw enabled
+      notify: Enable ufw
+
+    # TODO: Firewall for RedHat

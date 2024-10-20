@@ -1,15 +1,9 @@
 # Raspberry Pi Resources
 This repo contains resources to set up Raspberry Pi.
 
-## Basic Installations
-Check out [`./rpi4`](rpi4) directory for setting up Raspberry Pi 4B, including:
-- Setting up Rocky Linux
-- Setting up Ubuntu 22.04 LTS
-- Remote desktop
-- Overclocking
-
-## Kubernetes
-There are some resources in [`./k8s`](k8s), but it's quite resource consuming on Raspberry Pi.
-
-## Shutdown Script
-In [`./scheduled_shutdown`](scheduled_shutdown), script to shutdown Raspberry Pi on schedule.
+## Where to find stuff
+ - `/ansible` Ansible for setting up machines (Too many configurations and I'm a lazy person who tinkers a lot \*yawn\*)
+ - `/utils` Common utilities that would be good to install (watchdog, etc.)
+ - `/rpi4` Raspberry Pi 4B specific stuff (overclocking, boot config)
+ - `/rpi5` Raspberry Pi 5 specific stuff (boot config)
+ - `/k8s` has some prev experiment on running k8s on rpi (terrible idea)

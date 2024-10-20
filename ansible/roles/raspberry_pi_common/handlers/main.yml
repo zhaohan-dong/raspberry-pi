@@ -1,0 +1,27 @@
+---
+- name: Check raspberry_pi_common configs
+  block:
+    # i2c and spi number returned by raspi-config is the opposite of their status
+    - name: Check i2c
+      ansible.builtin.command: raspi-config nonint get_i2c
+      register: i2c_status
+      failed_when:
+        (raspberry_pi_common_enable_i2c and i2c_status.stdout != "0") or
+        (not raspberry_pi_common_enable_i2c and i2c_status.stdout != "1")
+      changed_when: false
+
+    - name: Check spi
+      ansible.builtin.command: raspi-config nonint get_spi
+      register: spi_status
+      failed_when:
+        (raspberry_pi_common_enable_spi and spi_status.stdout != "0") or
+        (raspberry_pi_common_enable_spi and spi_status.stdout != "1")
+      changed_when: false
+
+    - name: Check uart
+      ansible.builtin.command: raspi-config nonint get_serial_hw
+      register: uart_status
+      failed_when:
+        (raspberry_pi_common_enable_uart and uart_status.stdout != "0") or
+        (raspberry_pi_common_enable_uart and uart_status.stdout != "1")
+      changed_when: false

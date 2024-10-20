@@ -1,4 +1,4 @@
-# Watchdog for Raspberry Pi 4B
+# Watchdog for Raspberry Pi
 *Last Update: 20240408*
 
 Watchdog is useful to reboot Raspberry Pi when it locks up.

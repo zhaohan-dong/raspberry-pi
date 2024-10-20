@@ -1,0 +1,8 @@
+---
+# Raspberry Pi 4 GPIO fan
+raspberry_pi_4_has_gpio_fan: true
+raspberry_pi_4_gpio_fan_pin: 14
+raspberry_pi_4_fan_temp: 60000
+
+# Turn off lights on Raspberry Pi 4
+raspberry_pi_4_turn_off_lights: false

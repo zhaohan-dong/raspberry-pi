@@ -1,0 +1,3 @@
+---
+# Default allowed from any IP range for SSH
+common_ssh_allowed_src: any

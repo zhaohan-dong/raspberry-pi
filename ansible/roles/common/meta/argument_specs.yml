@@ -1,0 +1,17 @@
+---
+argument_specs:
+  # roles/common/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the common role
+    description:
+      - This is the main entrypoint for the common role
+      - This set up the firewall, ssh, and upgrades packages
+    author:
+      - Zhaohan Dong
+    options:
+      common_ssh_allowed_src:
+        type: "list"
+        elements: "str"
+        required: false
+        default: "any"
+        description: "A list of allowed IPs to establish SSH connection"

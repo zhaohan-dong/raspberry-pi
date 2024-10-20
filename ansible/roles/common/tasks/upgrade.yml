@@ -1,0 +1,17 @@
+---
+- name: Ensure packages are up to date
+  become: true
+  block:
+    - name: Ensure apt is up to date on Ubuntu or Debian
+      when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: safe
+        autoremove: true
+
+    - name: Ensure dnf is up to date on RedHat
+      when: ansible_facts["os_family"] | lower == "redhat"
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        autoremove: true

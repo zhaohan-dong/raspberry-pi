@@ -1,0 +1,11 @@
+---
+## Boot Configs
+# Disable i2c and spi pins on GPIO by default
+raspberry_pi_common_enable_i2c: false
+raspberry_pi_common_enable_spi: false
+# Disable uart by default
+raspberry_pi_common_enable_uart: false
+
+## Watchdog
+raspberry_pi_common_enable_watchdog: true
+raspberry_pi_common_watchdog_max_temp: 80000
