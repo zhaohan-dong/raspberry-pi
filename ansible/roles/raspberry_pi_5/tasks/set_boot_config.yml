@@ -12,7 +12,8 @@
       "raspberry_pi_5_enable_pcie_without_hat": {{ raspberry_pi_5_enable_pcie_without_hat }},
       "raspberry_pi_5_enable_pcie_gen3": {{ raspberry_pi_5_enable_pcie_gen3 }},
       "raspberry_pi_5_has_rtc_batt": {{ raspberry_pi_5_has_rtc_batt }},
-      "raspberry_pi_5_usb_max_current_enable": {{ raspberry_pi_5_usb_max_current_enable }}
+      "raspberry_pi_5_usb_max_current_enable": {{ raspberry_pi_5_usb_max_current_enable }},
+      "raspberry_pi_5_turn_off_lights": {{ raspberry_pi_5_turn_off_lights }}
       }
 
 - name: Set /boot/firmware/config.txt using template

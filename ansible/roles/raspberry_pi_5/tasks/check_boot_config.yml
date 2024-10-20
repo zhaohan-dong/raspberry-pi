@@ -1,4 +1,9 @@
 ---
+- name: Check Check raspberry_pi_common configs
+  ansible.builtin.debug:
+    msg: "Checking raspberry_pi_common configs"
+  notify: Check raspberry_pi_common configs
+
 - name: Check RTC battery charging
   block:
     - name: Suggest installing RTC backup battery
