@@ -6,6 +6,7 @@
 
 - name: Set Raspberry Pi Common Boot Config
   ansible.builtin.import_tasks: set_boot_config.yml
+  when: rpi_boot_config_set is not defined or not rpi_boot_config_set
 
 # This needs to be run after setting boot config because the watchdog depends on hardware
 - name: Set Watchdog

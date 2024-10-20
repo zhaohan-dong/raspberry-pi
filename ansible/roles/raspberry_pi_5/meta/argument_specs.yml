@@ -1,0 +1,31 @@
+---
+argument_specs:
+  # roles/raspberry_pi_5/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the raspberry_pi_5 role
+    description:
+      - This is the main entrypoint for the raspberry_pi_5 role
+      - This sets up boot configuration for Raspberry Pi 5 and overwrites default
+    author:
+      - Zhaohan Dong
+    options:
+      raspberry_pi_5_enable_pcie_without_hat:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable PCIe without needing to enable HAT+ device"
+      raspberry_pi_5_enable_pcie_gen3:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable PCIe Gen3 speed (Raspberry Pi 5 only certified to PCIe Gen2)"
+      raspberry_pi_5_has_rtc_batt:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable RTC battery charging"
+      raspberry_pi_5_usb_max_current_enable:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable 1600mA USB power on Raspberry Pi even when not supplying 25W power. Also used to boot from USB if underpowered by PSW."

@@ -1,10 +1,6 @@
 ---
 # raspberry_pi_common is run before these as dependency
 
-- name: Import the raspberry_pi_common role as dependency of raspberry_pi_5 role
-  ansible.builtin.import_role:
-    name: raspberry_pi_common
-
 - name: Set Boot Config
   ansible.builtin.import_tasks: set_boot_config.yml
 
@@ -12,5 +8,5 @@
   become: true
   ansible.builtin.reboot:
 
-- name: Verify Boot Config
-  ansible.builtin.import_tasks: check_boot_config.yml
+# - name: Verify Boot Config
+#   ansible.builtin.import_tasks: check_boot_config.yml

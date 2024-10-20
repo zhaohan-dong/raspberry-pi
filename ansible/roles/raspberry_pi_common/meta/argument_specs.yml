@@ -5,8 +5,8 @@ argument_specs:
     short_description: Main entry point for the raspberry_pi_common role
     description:
       - This is the main entrypoint for the raspberry_pi_common role
-      - This set up watchdog and common boot config for all raspberry pi versions
-      - The raspberry pi version specific role will overwrite the boot config
+      - This sets up watchdog and common boot config for all Raspberry Pi versions
+      - The Raspberry Pi version specific role will overwrite the boot config
     author:
       - Zhaohan Dong
     options:
