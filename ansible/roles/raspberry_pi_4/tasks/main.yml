@@ -4,9 +4,5 @@
 - name: Set Boot Config
   ansible.builtin.import_tasks: set_boot_config.yml
 
-- name: Reboot to Enable the Boot Config
-  become: true
-  ansible.builtin.reboot:
-
 # - name: Verify Boot Config
 #   ansible.builtin.import_tasks: check_boot_config.yml

@@ -4,10 +4,6 @@
     msg: This role is only supported on {{ raspberry_pi_common_supported_os }} systems
   when: ansible_facts["os_family"] | lower not in raspberry_pi_common_supported_os
 
-- name: Set Raspberry Pi Common Boot Config
-  ansible.builtin.import_tasks: set_boot_config.yml
-  when: rpi_boot_config_set is not defined or not rpi_boot_config_set
-
 # This needs to be run after setting boot config because the watchdog depends on hardware
 - name: Set Watchdog
   ansible.builtin.import_tasks: watchdog.yml

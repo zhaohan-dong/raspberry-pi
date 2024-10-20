@@ -21,3 +21,5 @@
     src: "{{ role_path }}/templates/config_rpi5.txt.j2"
     dest: /boot/firmware/config.txt
     mode: "0644"
+  # Reboot if changed
+  notify: Reboot system

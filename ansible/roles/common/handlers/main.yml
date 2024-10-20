@@ -18,6 +18,11 @@
   community.general.ufw:
     state: disabled
 
+- name: Reboot system
+  become: true
+  ansible.builtin.reboot:
+  changed_when: false
+
 - name: Set ufw ssh allow rules
   vars:
     host_node_ip: "{{ ansible_env['SSH_CLIENT'].split() | first }}"
