@@ -29,3 +29,8 @@ argument_specs:
         required: false
         default: false
         description: "Enable 1600mA USB power on Raspberry Pi even when not supplying 25W power. Also used to boot from USB if underpowered by PSW."
+      raspberry_pi_5_turn_off_lights:
+        type: "bool"
+        required: false
+        default: false
+        description: "Turn off the external lights on power and ethernet"

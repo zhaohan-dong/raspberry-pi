@@ -61,5 +61,15 @@ dtparam=rtc_bbat_vchg=3000000
 # Enable 1600mA USB output even when power supply is below 25W
 usb_max_current_enable=1
 {% endif %}
+{% if raspberry_pi_5_turn_off_lights %}
+# Turn off power LEDs
+dtparam=pwr_led_trigger=none
+dtparam=pwr_led_activelow=default-on
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=off
+# Turn off ethernet LEDs
+dtparam=eth_led0=4
+dtparam=eth_led1=4
+{% endif %}
 
 [all]

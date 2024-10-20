@@ -11,3 +11,6 @@ raspberry_pi_5_has_rtc_batt: false
 # Also used to boot from USB if underpowered by PSW
 # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#differences-on-raspberry-pi-5
 raspberry_pi_5_usb_max_current_enable: false
+
+# Turn off lights on Raspberry Pi 5
+raspberry_pi_5_turn_off_lights: false
