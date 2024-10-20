@@ -1,0 +1,3 @@
+---
+# Does not allow this to be run twice, if included with a raspberry pi model specific role in playbook
+allow_duplicates: false

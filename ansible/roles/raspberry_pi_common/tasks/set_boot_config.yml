@@ -1,0 +1,17 @@
+---
+- name: Display Boot Config
+  ansible.builtin.debug:
+    msg: >-
+      Boot Configurations for roles {{ ansible_role_names }}:
+      raspberry_pi_common_enable_i2c: {{ raspberry_pi_common_enable_i2c }},
+      raspberry_pi_common_enable_spi: {{ raspberry_pi_common_enable_spi }},
+      raspberry_pi_common_enable_uart: {{ raspberry_pi_common_enable_uart }},
+      raspberry_pi_common_enable_watchdog: {{ raspberry_pi_common_enable_watchdog }},
+      raspberry_pi_common_watchdog_max_temp: {{ raspberry_pi_common_watchdog_max_temp }}
+
+- name: Set /boot/firmware/config.txt using template
+  become: true
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config_common.txt.j2"
+    dest: /boot/firmware/config.txt
+    mode: "0644"

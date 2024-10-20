@@ -7,10 +7,10 @@
     - common
 
 - name: Disable Password Login
-  ansible.builtin.import_tasks: disable-password-auth.yml
+  ansible.builtin.import_tasks: disable_password_auth.yml
   tags:
     - common
-    - common:disable-password-auth
+    - common:disable_password_auth
 
 - name: Upgrade System Packages
   ansible.builtin.import_tasks: upgrade.yml

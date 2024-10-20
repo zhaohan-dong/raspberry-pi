@@ -1,0 +1,47 @@
+---
+# Enable watchdog
+# This also requires editing boot config because it involves the hardware
+- name: Enable Watchdog
+  become: true
+  when: raspberry_pi_common_enable_watchdog
+  block:
+    - name: Install Watchdog on Ubuntu/Debian
+      when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+      ansible.builtin.apt:
+        name: watchdog
+        state: present
+
+    - name: Set /etc/watchdog.conf using template
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/watchdog.conf.j2"
+        dest: /etc/watchdog.conf
+        mode: "0644"
+
+    - name: Enable watchdog service
+      ansible.builtin.systemd_service:
+        name: watchdog
+        enabled: true
+
+    - name: Notice to reboot
+      ansible.builtin.debug:
+        msg: Watchdog service is enabled on boot. A reboot is needed to start.
+
+- name: Disable Watchdog
+  become: true
+  when: not raspberry_pi_common_enable_watchdog
+  block:
+    - name: Disable watchdog service
+      ansible.builtin.systemd_service:
+        name: watchdog
+        enabled: false
+
+    - name: Remove Watchdog on Ubuntu/Debian
+      when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+      ansible.builtin.apt:
+        name: watchdog
+        state: absent
+
+    - name: Remove /etc/watchdog.conf
+      ansible.builtin.file:
+        path: /etc/watchdog.conf
+        state: absent

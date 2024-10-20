@@ -1,0 +1,3 @@
+---
+# Does not allow this to be run twice, if another child role is also in playbook
+allow_duplicates: false

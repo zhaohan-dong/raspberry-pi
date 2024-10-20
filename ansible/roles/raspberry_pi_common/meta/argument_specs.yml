@@ -1,0 +1,37 @@
+---
+argument_specs:
+  # roles/raspberry_pi_common/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the raspberry_pi_common role
+    description:
+      - This is the main entrypoint for the raspberry_pi_common role
+      - This set up watchdog and common boot config for all raspberry pi versions
+      - The raspberry pi version specific role will overwrite the boot config
+    author:
+      - Zhaohan Dong
+    options:
+      raspberry_pi_common_enable_i2c:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable i2c on the GPIO"
+      raspberry_pi_common_enable_spi:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable spi on the GPIO"
+      raspberry_pi_common_enable_uart:
+        type: "bool"
+        required: false
+        default: false
+        description: "Enable UART"
+      raspberry_pi_common_enable_watchdog:
+        type: "bool"
+        required: false
+        default: true
+        description: "Enable watchdog"
+      raspberry_pi_common_watchdog_max_temp:
+        type: int
+        required: false
+        default: 80000
+        description: "Watchdog max temperature in millicelsius"

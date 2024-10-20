@@ -1,0 +1,13 @@
+---
+# Enable PCIe without needing to enable HAT+ device
+# https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#enable-pcie
+raspberry_pi_5_enable_pcie_without_hat: false
+# Enable PCIe Gen3 speed (Raspberry Pi 5 only certified to PCIe Gen2)
+# https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
+raspberry_pi_5_enable_pcie_gen3: false
+# Enable RTC battery charging
+raspberry_pi_5_has_rtc_batt: false
+# Enable 1600mA USB power on Raspberry Pi even when not supplying 25W power
+# Also used to boot from USB if underpowered by PSW
+# https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#differences-on-raspberry-pi-5
+raspberry_pi_5_usb_max_current_enable: false
