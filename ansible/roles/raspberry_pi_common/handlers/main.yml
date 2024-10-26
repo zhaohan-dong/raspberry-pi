@@ -15,7 +15,7 @@
       register: spi_status
       failed_when:
         (raspberry_pi_common_enable_spi and spi_status.stdout != "0") or
-        (raspberry_pi_common_enable_spi and spi_status.stdout != "1")
+        (not raspberry_pi_common_enable_spi and spi_status.stdout != "1")
       changed_when: false
 
     - name: Check uart
@@ -23,5 +23,5 @@
       register: uart_status
       failed_when:
         (raspberry_pi_common_enable_uart and uart_status.stdout != "0") or
-        (raspberry_pi_common_enable_uart and uart_status.stdout != "1")
+        (not raspberry_pi_common_enable_uart and uart_status.stdout != "1")
       changed_when: false
