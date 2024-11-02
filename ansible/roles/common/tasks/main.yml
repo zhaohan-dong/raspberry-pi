@@ -18,6 +18,11 @@
     - common
     - common:upgrade
 
+- name: Install New Packages
+  ansible.builtin.import_tasks: new_packages.yml
+  tags:
+    - common
+
 - name: Setup Firewall
   ansible.builtin.import_tasks: firewall.yml
   tags:

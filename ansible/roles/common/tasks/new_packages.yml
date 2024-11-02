@@ -1,0 +1,9 @@
+---
+- name: Install raspi-config
+  become: true
+  block:
+    - name: Install raspi-config
+      when: ansible_facts["os_family"] | lower in ["debian", "ubuntu"]
+      ansible.builtin.apt:
+        name: raspi-config
+        state: latest
