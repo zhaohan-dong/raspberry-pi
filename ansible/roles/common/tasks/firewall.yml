@@ -4,6 +4,9 @@
   become: true
   block:
     - name: Allow OpenSSH on ansible_port or 22 (default)
+      vars:
+        default_ssh_from:
+          - any
       community.general.ufw:
         rule: allow
         name: OpenSSH
@@ -16,7 +19,7 @@
         state: enabled
         logging: "on"
 
-    - when: ssh_changed
+    - when: ssh_changed.changed
       block:
       - name: Remove ssh allow rules not in common_ssh_allowed_src
         vars:
