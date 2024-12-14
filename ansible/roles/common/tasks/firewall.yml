@@ -15,38 +15,37 @@
       loop: "{{ common_ssh_allowed_src }}"
       register: ssh_changed
 
+    - name: Check current host ip address is in common_ssh_allowed_src
+      vars:
+        host_node_ip: "{{ ansible_env['SSH_CLIENT'].split() | first }}"
+        ssh_allowed_src: "{{ common_ssh_allowed_src if common_ssh_allowed_src is not string else [common_ssh_allowed_src] }}"
+      ansible.builtin.fail:
+        msg: Your IP {{ host_node_ip }} is not in common_ssh_allowed_src
+      when:
+        - ('any') not in ssh_allowed_src
+        - (ssh_allowed_src |  map("ansible.utils.network_in_network", host_node_ip) |  sum) < 1
+
     - community.general.ufw:
         state: enabled
         logging: "on"
 
-    - when: ssh_changed.changed
+    - name: Remove ssh allow rules not in common_ssh_allowed_src
       block:
-      - name: Remove ssh allow rules not in common_ssh_allowed_src
-        vars:
-          host_node_ip: "{{ ansible_env['SSH_CLIENT'].split() | first }}"
-          ssh_allowed_src: "{{ common_ssh_allowed_src if common_ssh_allowed_src is not string else [common_ssh_allowed_src] }}"
-        block:
-          - name: Check current host ip address is in common_ssh_allowed_src
-            ansible.builtin.fail:
-              msg: Your IP {{ host_node_ip }} is not in common_ssh_allowed_src
-            when:
-              - ('any') not in ssh_allowed_src
-              - (ssh_allowed_src |  map("ansible.utils.network_in_network", host_node_ip) |  sum) < 1
+        - name: Get current UFW rules
+          ansible.builtin.command: ufw status numbered
+          register: ufw_status
+          changed_when: false
 
-          - name: Get current UFW rules
-            ansible.builtin.command: ufw status numbered
-            register: ufw_status
-            changed_when: false
-
-          - name: Delete all OpenSSH rules not in common_ssh_allowed_src
-            no_log: true
-            community.general.ufw:
-              delete: true
-              rule: allow
-              name: OpenSSH
-              src: "{{ (item.split()[-2] if 'OpenSSH (v6)' in item else item.split()[-1]).replace('Anywhere', 'any') }}"
-            loop: "{{ ufw_status.stdout_lines }}"
-            when: "'OpenSSH' in item and ((item.split()[-2] if 'OpenSSH (v6)' in item else item.split()[-1]).replace('Anywhere', 'any') not in ssh_allowed_src)"
+        - name: Delete all OpenSSH rules not in common_ssh_allowed_src
+          vars:
+            ssh_allowed_src: "{{ common_ssh_allowed_src if common_ssh_allowed_src is not string else [common_ssh_allowed_src] }}"
+          community.general.ufw:
+            delete: true
+            rule: allow
+            name: OpenSSH
+            src: "{{ (item.split()[-2] if 'OpenSSH (v6)' in item else item.split()[-1]).replace('Anywhere', 'any') }}"
+          loop: "{{ ufw_status.stdout_lines }}"
+          when: "'OpenSSH' in item and ((item.split()[-2] if 'OpenSSH (v6)' in item else item.split()[-1]).replace('Anywhere', 'any') not in ssh_allowed_src)"
 
   rescue:
     - name: Grant ssh access when there's error
@@ -56,6 +55,6 @@
         src: any
         port: "22"
     - name: Warn user
-      ansible.builtin.debug:
+      ansible.builtin.fail:
         msg: Error running 'Enable Ubuntu/Debian UFW with SSH' on {{ inventory_hostname }}. Allowing ssh from any to port 22. Please check ufw settings.
   # TODO: Firewall for RedHat
